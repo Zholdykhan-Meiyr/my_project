@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productivity Hub</title>
     <style>
-        /* ===== СБРОС И БАЗОВЫЕ СТИЛИ ===== */
         * {
             margin: 0;
             padding: 0;
@@ -13,7 +12,6 @@
         }
 
         :root {
-            /* Светлая тема */
             --bg-primary: #ffffff;
             --bg-secondary: #f7f8fa;
             --bg-card: #ffffff;
@@ -45,7 +43,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg-secondary);
             color: var(--text-primary);
             line-height: 1.6;
@@ -53,7 +51,6 @@
             min-height: 100vh;
         }
 
-        /* ===== HEADER ===== */
         .header {
             background: var(--bg-card);
             border-bottom: 1px solid var(--border-color);
@@ -96,7 +93,6 @@
             transform: translateY(-1px);
         }
 
-        /* ===== КОНТЕЙНЕР ===== */
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -109,7 +105,6 @@
             gap: 1.5rem;
         }
 
-        /* ===== КАРТОЧКИ ===== */
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -132,7 +127,6 @@
             letter-spacing: -0.01em;
         }
 
-        /* ===== КНОПКИ ===== */
         .btn {
             background: var(--accent);
             color: white;
@@ -150,10 +144,6 @@
             background: var(--accent-hover);
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-        }
-
-        .btn:active {
-            transform: translateY(0);
         }
 
         .btn-secondary {
@@ -185,12 +175,6 @@
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
 
-        .btn-small {
-            padding: 0.4rem 0.8rem;
-            font-size: 0.8rem;
-        }
-
-        /* ===== ИНПУТЫ ===== */
         input[type="text"],
         input[type="number"],
         textarea {
@@ -217,7 +201,6 @@
             min-height: 100px;
         }
 
-        /* ===== TO-DO LIST ===== */
         .todo-input-group {
             display: flex;
             gap: 0.75rem;
@@ -288,7 +271,6 @@
             transform: scale(1.1);
         }
 
-        /* ===== TIMER & POMODORO ===== */
         .timer-display {
             font-size: 3.5rem;
             font-weight: 700;
@@ -325,7 +307,6 @@
             font-weight: 500;
         }
 
-        /* ===== NOTES ===== */
         .notes-list {
             display: flex;
             flex-direction: column;
@@ -366,7 +347,6 @@
             gap: 0.75rem;
         }
 
-        /* ===== HABIT TRACKER ===== */
         .habit-input-group {
             display: flex;
             gap: 0.75rem;
@@ -410,9 +390,9 @@
             color: var(--text-secondary);
             font-size: 0.85rem;
             font-weight: 500;
+            margin-right: 0.5rem;
         }
 
-        /* ===== STOPWATCH ===== */
         .stopwatch-display {
             font-size: 3rem;
             font-weight: 700;
@@ -423,7 +403,6 @@
             font-variant-numeric: tabular-nums;
         }
 
-        /* ===== MOTIVATION ===== */
         .quote-display {
             background: var(--bg-secondary);
             padding: 1.5rem;
@@ -444,7 +423,6 @@
             font-style: italic;
         }
 
-        /* ===== SCROLLBAR ===== */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -463,7 +441,6 @@
             background: var(--text-secondary);
         }
 
-        /* ===== АДАПТИВНОСТЬ ===== */
         @media (max-width: 768px) {
             .container {
                 padding: 1rem;
@@ -521,7 +498,6 @@
     </style>
 </head>
 <body>
-    <!-- HEADER -->
     <header class="header">
         <div class="header-content">
             <div class="logo">⚡ Productivity Hub</div>
@@ -529,10 +505,8 @@
         </div>
     </header>
 
-    <!-- ГЛАВНЫЙ КОНТЕЙНЕР -->
     <div class="container">
         <div class="grid">
-            <!-- TO-DO LIST -->
             <div class="card">
                 <h2 class="card-title">✅ To-Do List</h2>
                 <div class="todo-input-group">
@@ -542,7 +516,6 @@
                 <div class="todo-list" id="todoList"></div>
             </div>
 
-            <!-- COUNTDOWN TIMER -->
             <div class="card">
                 <h2 class="card-title">⏱️ Таймер обратного отсчёта</h2>
                 <div class="timer-inputs">
@@ -557,7 +530,6 @@
                 </div>
             </div>
 
-            <!-- POMODORO TIMER -->
             <div class="card">
                 <h2 class="card-title">🍅 Pomodoro Timer</h2>
                 <div class="timer-display" id="pomodoroDisplay">25:00</div>
@@ -569,7 +541,6 @@
                 <div class="pomodoro-mode" id="pomodoroMode">Режим: Работа (25 мин)</div>
             </div>
 
-            <!-- NOTES -->
             <div class="card">
                 <h2 class="card-title">📝 Заметки</h2>
                 <div class="notes-list" id="notesList"></div>
@@ -583,7 +554,6 @@
                 </div>
             </div>
 
-            <!-- HABIT TRACKER -->
             <div class="card">
                 <h2 class="card-title">🎯 Трекер привычек</h2>
                 <div class="habit-input-group">
@@ -593,7 +563,6 @@
                 <div class="habit-list" id="habitList"></div>
             </div>
 
-            <!-- STOPWATCH -->
             <div class="card">
                 <h2 class="card-title">⏲️ Секундомер</h2>
                 <div class="stopwatch-display" id="stopwatchDisplay">00:00:00</div>
@@ -604,7 +573,6 @@
                 </div>
             </div>
 
-            <!-- MOTIVATION GENERATOR -->
             <div class="card">
                 <h2 class="card-title">💪 Мотивация</h2>
                 <div class="quote-display">
@@ -616,10 +584,8 @@
     </div>
 
     <script>
-        // ===== ПЕРЕКЛЮЧЕНИЕ ТЕМЫ =====
         const themeToggle = document.getElementById('themeToggle');
         const html = document.documentElement;
-        
         let currentTheme = 'light';
         
         themeToggle.addEventListener('click', () => {
@@ -628,24 +594,22 @@
             themeToggle.textContent = currentTheme === 'light' ? '🌙 Тёмная тема' : '☀️ Светлая тема';
         });
 
-        // ===== TO-DO LIST =====
         const todoInput = document.getElementById('todoInput');
         const addTodoBtn = document.getElementById('addTodoBtn');
         const todoList = document.getElementById('todoList');
-        
         let todos = [];
 
         function renderTodos() {
             todoList.innerHTML = '';
-            todos.forEach((todo, index) => {
-                const todoItem = document.createElement('div');
-                todoItem.className = `todo-item ${todo.completed ? 'completed' : ''}`;
-                todoItem.innerHTML = `
-                    <input type="checkbox" class="todo-checkbox" ${todo.completed ? 'checked' : ''} data-index="${index}">
+            todos.forEach((todo, i) => {
+                const div = document.createElement('div');
+                div.className = `todo-item ${todo.completed ? 'completed' : ''}`;
+                div.innerHTML = `
+                    <input type="checkbox" class="todo-checkbox" ${todo.completed ? 'checked' : ''} data-index="${i}">
                     <span class="todo-text">${todo.text}</span>
-                    <button class="todo-delete" data-index="${index}">×</button>
+                    <button class="todo-delete" data-index="${i}">×</button>
                 `;
-                todoList.appendChild(todoItem);
+                todoList.appendChild(div);
             });
         }
 
@@ -659,24 +623,21 @@
         }
 
         addTodoBtn.addEventListener('click', addTodo);
-        todoInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') addTodo();
-        });
+        todoInput.addEventListener('keypress', e => e.key === 'Enter' && addTodo());
 
-        todoList.addEventListener('click', (e) => {
+        todoList.addEventListener('click', e => {
             if (e.target.classList.contains('todo-checkbox')) {
-                const index = parseInt(e.target.dataset.index);
-                todos[index].completed = !todos[index].completed;
+                const i = parseInt(e.target.dataset.index);
+                todos[i].completed = !todos[i].completed;
                 renderTodos();
             }
             if (e.target.classList.contains('todo-delete')) {
-                const index = parseInt(e.target.dataset.index);
-                todos.splice(index, 1);
+                const i = parseInt(e.target.dataset.index);
+                todos.splice(i, 1);
                 renderTodos();
             }
         });
 
-        // ===== COUNTDOWN TIMER =====
         const timerMinutes = document.getElementById('timerMinutes');
         const timerSeconds = document.getElementById('timerSeconds');
         const timerDisplay = document.getElementById('timerDisplay');
@@ -688,20 +649,18 @@
         let timerRemaining = 0;
 
         function updateTimerDisplay() {
-            const mins = Math.floor(timerRemaining / 60);
-            const secs = timerRemaining % 60;
-            timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+            const m = Math.floor(timerRemaining / 60);
+            const s = timerRemaining % 60;
+            timerDisplay.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
         }
 
         function startTimer() {
             if (timerInterval) return;
-            
             if (timerRemaining === 0) {
-                const mins = parseInt(timerMinutes.value) || 0;
-                const secs = parseInt(timerSeconds.value) || 0;
-                timerRemaining = mins * 60 + secs;
+                const m = parseInt(timerMinutes.value) || 0;
+                const s = parseInt(timerSeconds.value) || 0;
+                timerRemaining = m * 60 + s;
             }
-
             if (timerRemaining > 0) {
                 timerInterval = setInterval(() => {
                     timerRemaining--;
@@ -723,9 +682,9 @@
         function resetTimer() {
             clearInterval(timerInterval);
             timerInterval = null;
-            const mins = parseInt(timerMinutes.value) || 0;
-            const secs = parseInt(timerSeconds.value) || 0;
-            timerRemaining = mins * 60 + secs;
+            const m = parseInt(timerMinutes.value) || 0;
+            const s = parseInt(timerSeconds.value) || 0;
+            timerRemaining = m * 60 + s;
             updateTimerDisplay();
         }
 
@@ -735,23 +694,22 @@
 
         timerMinutes.addEventListener('input', () => {
             if (!timerInterval) {
-                const mins = parseInt(timerMinutes.value) || 0;
-                const secs = parseInt(timerSeconds.value) || 0;
-                timerRemaining = mins * 60 + secs;
+                const m = parseInt(timerMinutes.value) || 0;
+                const s = parseInt(timerSeconds.value) || 0;
+                timerRemaining = m * 60 + s;
                 updateTimerDisplay();
             }
         });
 
         timerSeconds.addEventListener('input', () => {
             if (!timerInterval) {
-                const mins = parseInt(timerMinutes.value) || 0;
-                const secs = parseInt(timerSeconds.value) || 0;
-                timerRemaining = mins * 60 + secs;
+                const m = parseInt(timerMinutes.value) || 0;
+                const s = parseInt(timerSeconds.value) || 0;
+                timerRemaining = m * 60 + s;
                 updateTimerDisplay();
             }
         });
 
-        // ===== POMODORO TIMER =====
         const pomodoroDisplay = document.getElementById('pomodoroDisplay');
         const startPomodoroBtn = document.getElementById('startPomodoroBtn');
         const pausePomodoroBtn = document.getElementById('pausePomodoroBtn');
@@ -763,22 +721,19 @@
         let isWorkMode = true;
 
         function updatePomodoroDisplay() {
-            const mins = Math.floor(pomodoroRemaining / 60);
-            const secs = pomodoroRemaining % 60;
-            pomodoroDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+            const m = Math.floor(pomodoroRemaining / 60);
+            const s = pomodoroRemaining % 60;
+            pomodoroDisplay.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
         }
 
         function startPomodoro() {
             if (pomodoroInterval) return;
-            
             pomodoroInterval = setInterval(() => {
                 pomodoroRemaining--;
                 updatePomodoroDisplay();
-                
                 if (pomodoroRemaining === 0) {
                     clearInterval(pomodoroInterval);
                     pomodoroInterval = null;
-                    
                     if (isWorkMode) {
                         alert('🎉 Рабочий сеанс завершён! Время отдыха.');
                         pomodoroRemaining = 5 * 60;
@@ -813,7 +768,6 @@
         pausePomodoroBtn.addEventListener('click', pausePomodoro);
         resetPomodoroBtn.addEventListener('click', resetPomodoro);
 
-        // ===== NOTES =====
         const notesList = document.getElementById('notesList');
         const noteContent = document.getElementById('noteContent');
         const saveNoteBtn = document.getElementById('saveNoteBtn');
@@ -825,12 +779,12 @@
 
         function renderNotes() {
             notesList.innerHTML = '';
-            notes.forEach((note, index) => {
-                const noteItem = document.createElement('div');
-                noteItem.className = `note-item ${index === currentNoteIndex ? 'active' : ''}`;
-                noteItem.textContent = note.substring(0, 30) + (note.length > 30 ? '...' : '');
-                noteItem.dataset.index = index;
-                notesList.appendChild(noteItem);
+            notes.forEach((note, i) => {
+                const div = document.createElement('div');
+                div.className = `note-item ${i === currentNoteIndex ? 'active' : ''}`;
+                div.textContent = note.substring(0, 30) + (note.length > 30 ? '...' : '');
+                div.dataset.index = i;
+                notesList.appendChild(div);
             });
         }
 
@@ -865,7 +819,7 @@
         newNoteBtn.addEventListener('click', newNote);
         deleteNoteBtn.addEventListener('click', deleteNote);
 
-        notesList.addEventListener('click', (e) => {
+        notesList.addEventListener('click', e => {
             if (e.target.classList.contains('note-item')) {
                 currentNoteIndex = parseInt(e.target.dataset.index);
                 noteContent.value = notes[currentNoteIndex];
@@ -873,29 +827,27 @@
             }
         });
 
-        // ===== HABIT TRACKER =====
         const habitInput = document.getElementById('habitInput');
         const addHabitBtn = document.getElementById('addHabitBtn');
         const habitList = document.getElementById('habitList');
-
         let habits = [];
 
         function renderHabits() {
             habitList.innerHTML = '';
-            habits.forEach((habit, index) => {
-                const habitItem = document.createElement('div');
-                habitItem.className = 'habit-item';
-                habitItem.innerHTML = `
+            habits.forEach((habit, i) => {
+                const div = document.createElement('div');
+                div.className = 'habit-item';
+                div.innerHTML = `
                     <div class="habit-left">
-                        <input type="checkbox" class="todo-checkbox" ${habit.done ? 'checked' : ''} data-index="${index}">
+                        <input type="checkbox" class="todo-checkbox" ${habit.done ? 'checked' : ''} data-index="${i}">
                         <span class="habit-name">${habit.name}</span>
                     </div>
                     <div>
                         <span class="habit-streak">🔥 ${habit.streak}</span>
-                        <button class="todo-delete" data-index="${index}">×</button>
+                        <button class="todo-delete" data-index="${i}">×</button>
                     </div>
                 `;
-                habitList.appendChild(habitItem);
+                habitList.appendChild(div);
             });
         }
 
@@ -909,94 +861,20 @@
         }
 
         addHabitBtn.addEventListener('click', addHabit);
-        habitInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') addHabit();
-        });
+        habitInput.addEventListener('keypress', e => e.key === 'Enter' && addHabit());
 
-        habitList.addEventListener('click', (e) => {
+        habitList.addEventListener('click', e => {
             if (e.target.classList.contains('todo-checkbox')) {
-                const index = parseInt(e.target.dataset.index);
-                habits[index].done = !habits[index].done;
-                if (habits[index].done) {
-                    habits[index].streak++;
-                }
+                const i = parseInt(e.target.dataset.index);
+                habits[i].done = !habits[i].done;
+                if (habits[i].done) habits[i].streak++;
                 renderHabits();
             }
             if (e.target.classList.contains('todo-delete')) {
-                const index = parseInt(e.target.dataset.index);
-                habits.splice(index, 1);
+                const i = parseInt(e.target.dataset.index);
+                habits.splice(i, 1);
                 renderHabits();
             }
         });
 
-        // ===== STOPWATCH =====
-        const stopwatchDisplay = document.getElementById('stopwatchDisplay');
-        const startStopwatchBtn = document.getElementById('startStopwatchBtn');
-        const pauseStopwatchBtn = document.getElementById('pauseStopwatchBtn');
-        const resetStopwatchBtn = document.getElementById('resetStopwatchBtn');
-
-        let stopwatchInterval = null;
-        let stopwatchTime = 0;
-
-        function updateStopwatchDisplay() {
-            const hours = Math.floor(stopwatchTime / 3600);
-            const minutes = Math.floor((stopwatchTime % 3600) / 60);
-            const seconds = stopwatchTime % 60;
-            stopwatchDisplay.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        }
-
-        function startStopwatch() {
-            if (stopwatchInterval) return;
-            stopwatchInterval = setInterval(() => {
-                stopwatchTime++;
-                updateStopwatchDisplay();
-            }, 1000);
-        }
-
-        function pauseStopwatch() {
-            clearInterval(stopwatchInterval);
-            stopwatchInterval = null;
-        }
-
-        function resetStopwatch() {
-            clearInterval(stopwatchInterval);
-            stopwatchInterval = null;
-            stopwatchTime = 0;
-            updateStopwatchDisplay();
-        }
-
-        startStopwatchBtn.addEventListener('click', startStopwatch);
-        pauseStopwatchBtn.addEventListener('click', pauseStopwatch);
-        resetStopwatchBtn.addEventListener('click', resetStopwatch);
-
-        // ===== MOTIVATION GENERATOR =====
-        const quoteText = document.getElementById('quoteText');
-        const newQuoteBtn = document.getElementById('newQuoteBtn');
-
-        const quotes = [
-            "Успех — это способность идти от неудачи к неудаче, не теряя энтузиазма.",
-            "Не ждите идеального момента. Возьмите момент и сделайте его идеальным.",
-            "Единственный способ делать великую работу — любить то, что вы делаете.",
-            "Мотивация — это то, с чего вы начинаете. Привычка — это то, что заставляет вас продолжать.",
-            "Ваше время ограничено, не тратьте его на жизнь чужой жизнью.",
-            "Начните с того места, где вы находитесь. Используйте то, что имеете. Делайте то, что можете.",
-            "Не бойтесь отказаться от хорошего ради великого.",
-            "Маленькие шаги каждый день приводят к большим изменениям.",
-            "Дисциплина — это мост между целями и достижениями.",
-            "Вы не должны быть великим, чтобы начать, но вы должны начать, чтобы стать великим.",
-            "Единственное ограничение — это то, которое вы установили в своем уме.",
-            "Будущее принадлежит тем, кто верит в красоту своих мечтаний.",
-            "Не считайте дни, делайте так, чтобы дни считались.",
-            "Трудности готовят обычных людей к необычной судьбе.",
-            "Лучшее время посадить дерево было 20 лет назад. Второе лучшее время — сейчас."
-        ];
-
-        function generateQuote() {
-            const randomIndex = Math.floor(Math.random() * quotes.length);
-            quoteText.textContent = quotes[randomIndex];
-        }
-
-        newQuoteBtn.addEventListener('click', generateQuote);
-    </script>
-</body>
-</html>
+        const stopwatchDisplay = document.getElementById('stop
