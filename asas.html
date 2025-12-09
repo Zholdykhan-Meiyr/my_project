@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productivity Hub</title>
+    <style>
+        /* ===== СБРОС И БАЗОВЫЕ СТИЛИ ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Светлая тема */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f7f8fa;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #6b7280;
+            --border-color: #e5e7eb;
+            --accent: #6366f1;
+            --accent-hover: #4f46e5;
+            --success: #10b981;
+            --danger: #ef4444;
+            --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f0f0f;
+            --bg-secondary: #1a1a1a;
+            --bg-card: #1f1f1f;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --border-color: #2d2d2d;
+            --accent: #818cf8;
+            --accent-hover: #6366f1;
+            --success: #34d399;
+            --danger: #f87171;
+            --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.4), 0 4px 6px -2px rgba(0,0,0,0.3);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: var(--transition);
+            min-height: 100vh;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.25rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: -0.02em;
+        }
+
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .theme-toggle:hover {
+            background: var(--border-color);
+            transform: translateY(-1px);
+        }
+
+        /* ===== КОНТЕЙНЕР ===== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* ===== КАРТОЧКИ ===== */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 1.75rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        /* ===== КНОПКИ ===== */
+        .btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 0.65rem 1.25rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border-color);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-success {
+            background: var(--success);
+        }
+
+        .btn-success:hover {
+            background: #059669;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-small {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+        }
+
+        /* ===== ИНПУТЫ ===== */
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* ===== TO-DO LIST ===== */
+        .todo-input-group {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .todo-input-group input {
+            flex: 1;
+        }
+
+        .todo-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: 12px;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .todo-item:hover {
+            border-color: var(--border-color);
+            transform: translateX(2px);
+        }
+
+        .todo-item.completed {
+            opacity: 0.6;
+        }
+
+        .todo-item.completed .todo-text {
+            text-decoration: line-through;
+            color: var(--text-secondary);
+        }
+
+        .todo-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--accent);
+        }
+
+        .todo-text {
+            flex: 1;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .todo-delete {
+            background: transparent;
+            border: none;
+            color: var(--danger);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.25rem;
+            opacity: 0.6;
+            transition: var(--transition);
+        }
+
+        .todo-delete:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        /* ===== TIMER & POMODORO ===== */
+        .timer-display {
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 1.5rem 0;
+            color: var(--accent);
+            letter-spacing: -0.02em;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .timer-inputs {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .timer-inputs input {
+            flex: 1;
+            text-align: center;
+        }
+
+        .pomodoro-mode {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+
+        /* ===== NOTES ===== */
+        .notes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .note-item {
+            background: var(--bg-secondary);
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .note-item:hover {
+            border-color: var(--accent);
+            transform: translateX(2px);
+        }
+
+        .note-item.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .note-editor {
+            margin-bottom: 1rem;
+        }
+
+        .note-buttons {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        /* ===== HABIT TRACKER ===== */
+        .habit-input-group {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .habit-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .habit-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: 12px;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .habit-item:hover {
+            border-color: var(--border-color);
+        }
+
+        .habit-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex: 1;
+        }
+
+        .habit-name {
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .habit-streak {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* ===== STOPWATCH ===== */
+        .stopwatch-display {
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 1.5rem 0;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ===== MOTIVATION ===== */
+        .quote-display {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin-bottom: 1.25rem;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-left: 4px solid var(--accent);
+        }
+
+        .quote-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+            font-style: italic;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-secondary);
+        }
+
+        /* ===== АДАПТИВНОСТЬ ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header {
+                padding: 1rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .card {
+                padding: 1.25rem;
+            }
+
+            .timer-display {
+                font-size: 2.5rem;
+            }
+
+            .stopwatch-display {
+                font-size: 2.5rem;
+            }
+
+            .quote-text {
+                font-size: 1rem;
+            }
+
+            .logo {
+                font-size: 1.25rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .header-content {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .timer-display {
+                font-size: 2rem;
+            }
+
+            .stopwatch-display {
+                font-size: 2rem;
+            }
+
+            .btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">⚡ Productivity Hub</div>
+            <button class="theme-toggle" id="themeToggle">🌙 Тёмная тема</button>
+        </div>
+    </header>
+
+    <!-- ГЛАВНЫЙ КОНТЕЙНЕР -->
+    <div class="container">
+        <div class="grid">
+            <!-- TO-DO LIST -->
+            <div class="card">
+                <h2 class="card-title">✅ To-Do List</h2>
+                <div class="todo-input-group">
+                    <input type="text" id="todoInput" placeholder="Добавить задачу...">
+                    <button class="btn" id="addTodoBtn">Добавить</button>
+                </div>
+                <div class="todo-list" id="todoList"></div>
+            </div>
+
+            <!-- COUNTDOWN TIMER -->
+            <div class="card">
+                <h2 class="card-title">⏱️ Таймер обратного отсчёта</h2>
+                <div class="timer-inputs">
+                    <input type="number" id="timerMinutes" placeholder="Мин" min="0" max="999" value="5">
+                    <input type="number" id="timerSeconds" placeholder="Сек" min="0" max="59" value="0">
+                </div>
+                <div class="timer-display" id="timerDisplay">05:00</div>
+                <div class="timer-controls">
+                    <button class="btn btn-success" id="startTimerBtn">Старт</button>
+                    <button class="btn btn-secondary" id="pauseTimerBtn">Пауза</button>
+                    <button class="btn btn-danger" id="resetTimerBtn">Сброс</button>
+                </div>
+            </div>
+
+            <!-- POMODORO TIMER -->
+            <div class="card">
+                <h2 class="card-title">🍅 Pomodoro Timer</h2>
+                <div class="timer-display" id="pomodoroDisplay">25:00</div>
+                <div class="timer-controls">
+                    <button class="btn btn-success" id="startPomodoroBtn">Старт</button>
+                    <button class="btn btn-secondary" id="pausePomodoroBtn">Пауза</button>
+                    <button class="btn btn-danger" id="resetPomodoroBtn">Сброс</button>
+                </div>
+                <div class="pomodoro-mode" id="pomodoroMode">Режим: Работа (25 мин)</div>
+            </div>
+
+            <!-- NOTES -->
+            <div class="card">
+                <h2 class="card-title">📝 Заметки</h2>
+                <div class="notes-list" id="notesList"></div>
+                <div class="note-editor">
+                    <textarea id="noteContent" placeholder="Напишите заметку..."></textarea>
+                </div>
+                <div class="note-buttons">
+                    <button class="btn" id="saveNoteBtn">Сохранить</button>
+                    <button class="btn btn-secondary" id="newNoteBtn">Новая</button>
+                    <button class="btn btn-danger" id="deleteNoteBtn">Удалить</button>
+                </div>
+            </div>
+
+            <!-- HABIT TRACKER -->
+            <div class="card">
+                <h2 class="card-title">🎯 Трекер привычек</h2>
+                <div class="habit-input-group">
+                    <input type="text" id="habitInput" placeholder="Новая привычка...">
+                    <button class="btn" id="addHabitBtn">Добавить</button>
+                </div>
+                <div class="habit-list" id="habitList"></div>
+            </div>
+
+            <!-- STOPWATCH -->
+            <div class="card">
+                <h2 class="card-title">⏲️ Секундомер</h2>
+                <div class="stopwatch-display" id="stopwatchDisplay">00:00:00</div>
+                <div class="timer-controls">
+                    <button class="btn btn-success" id="startStopwatchBtn">Старт</button>
+                    <button class="btn btn-secondary" id="pauseStopwatchBtn">Пауза</button>
+                    <button class="btn btn-danger" id="resetStopwatchBtn">Сброс</button>
+                </div>
+            </div>
+
+            <!-- MOTIVATION GENERATOR -->
+            <div class="card">
+                <h2 class="card-title">💪 Мотивация</h2>
+                <div class="quote-display">
+                    <p class="quote-text" id="quoteText">Нажмите кнопку для получения мотивации</p>
+                </div>
+                <button class="btn" id="newQuoteBtn">Новая цитата</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== ПЕРЕКЛЮЧЕНИЕ ТЕМЫ =====
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        
+        let currentTheme = 'light';
+        
+        themeToggle.addEventListener('click', () => {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', currentTheme);
+            themeToggle.textContent = currentTheme === 'light' ? '🌙 Тёмная тема' : '☀️ Светлая тема';
+        });
+
+        // ===== TO-DO LIST =====
+        const todoInput = document.getElementById('todoInput');
+        const addTodoBtn = document.getElementById('addTodoBtn');
+        const todoList = document.getElementById('todoList');
+        
+        let todos = [];
+
+        function renderTodos() {
+            todoList.innerHTML = '';
+            todos.forEach((todo, index) => {
+                const todoItem = document.createElement('div');
+                todoItem.className = `todo-item ${todo.completed ? 'completed' : ''}`;
+                todoItem.innerHTML = `
+                    <input type="checkbox" class="todo-checkbox" ${todo.completed ? 'checked' : ''} data-index="${index}">
+                    <span class="todo-text">${todo.text}</span>
+                    <button class="todo-delete" data-index="${index}">×</button>
+                `;
+                todoList.appendChild(todoItem);
+            });
+        }
+
+        function addTodo() {
+            const text = todoInput.value.trim();
+            if (text) {
+                todos.push({ text, completed: false });
+                todoInput.value = '';
+                renderTodos();
+            }
+        }
+
+        addTodoBtn.addEventListener('click', addTodo);
+        todoInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addTodo();
+        });
+
+        todoList.addEventListener('click', (e) => {
+            if (e.target.classList.contains('todo-checkbox')) {
+                const index = parseInt(e.target.dataset.index);
+                todos[index].completed = !todos[index].completed;
+                renderTodos();
+            }
+            if (e.target.classList.contains('todo-delete')) {
+                const index = parseInt(e.target.dataset.index);
+                todos.splice(index, 1);
+                renderTodos();
+            }
+        });
+
+        // ===== COUNTDOWN TIMER =====
+        const timerMinutes = document.getElementById('timerMinutes');
+        const timerSeconds = document.getElementById('timerSeconds');
+        const timerDisplay = document.getElementById('timerDisplay');
+        const startTimerBtn = document.getElementById('startTimerBtn');
+        const pauseTimerBtn = document.getElementById('pauseTimerBtn');
+        const resetTimerBtn = document.getElementById('resetTimerBtn');
+
+        let timerInterval = null;
+        let timerRemaining = 0;
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(timerRemaining / 60);
+            const secs = timerRemaining % 60;
+            timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (timerInterval) return;
+            
+            if (timerRemaining === 0) {
+                const mins = parseInt(timerMinutes.value) || 0;
+                const secs = parseInt(timerSeconds.value) || 0;
+                timerRemaining = mins * 60 + secs;
+            }
+
+            if (timerRemaining > 0) {
+                timerInterval = setInterval(() => {
+                    timerRemaining--;
+                    updateTimerDisplay();
+                    if (timerRemaining === 0) {
+                        clearInterval(timerInterval);
+                        timerInterval = null;
+                        alert('⏰ Время вышло!');
+                    }
+                }, 1000);
+            }
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            const mins = parseInt(timerMinutes.value) || 0;
+            const secs = parseInt(timerSeconds.value) || 0;
+            timerRemaining = mins * 60 + secs;
+            updateTimerDisplay();
+        }
+
+        startTimerBtn.addEventListener('click', startTimer);
+        pauseTimerBtn.addEventListener('click', pauseTimer);
+        resetTimerBtn.addEventListener('click', resetTimer);
+
+        timerMinutes.addEventListener('input', () => {
+            if (!timerInterval) {
+                const mins = parseInt(timerMinutes.value) || 0;
+                const secs = parseInt(timerSeconds.value) || 0;
+                timerRemaining = mins * 60 + secs;
+                updateTimerDisplay();
+            }
+        });
+
+        timerSeconds.addEventListener('input', () => {
+            if (!timerInterval) {
+                const mins = parseInt(timerMinutes.value) || 0;
+                const secs = parseInt(timerSeconds.value) || 0;
+                timerRemaining = mins * 60 + secs;
+                updateTimerDisplay();
+            }
+        });
+
+        // ===== POMODORO TIMER =====
+        const pomodoroDisplay = document.getElementById('pomodoroDisplay');
+        const startPomodoroBtn = document.getElementById('startPomodoroBtn');
+        const pausePomodoroBtn = document.getElementById('pausePomodoroBtn');
+        const resetPomodoroBtn = document.getElementById('resetPomodoroBtn');
+        const pomodoroMode = document.getElementById('pomodoroMode');
+
+        let pomodoroInterval = null;
+        let pomodoroRemaining = 25 * 60;
+        let isWorkMode = true;
+
+        function updatePomodoroDisplay() {
+            const mins = Math.floor(pomodoroRemaining / 60);
+            const secs = pomodoroRemaining % 60;
+            pomodoroDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        function startPomodoro() {
+            if (pomodoroInterval) return;
+            
+            pomodoroInterval = setInterval(() => {
+                pomodoroRemaining--;
+                updatePomodoroDisplay();
+                
+                if (pomodoroRemaining === 0) {
+                    clearInterval(pomodoroInterval);
+                    pomodoroInterval = null;
+                    
+                    if (isWorkMode) {
+                        alert('🎉 Рабочий сеанс завершён! Время отдыха.');
+                        pomodoroRemaining = 5 * 60;
+                        isWorkMode = false;
+                        pomodoroMode.textContent = 'Режим: Отдых (5 мин)';
+                    } else {
+                        alert('✅ Отдых завершён! Начинаем работу.');
+                        pomodoroRemaining = 25 * 60;
+                        isWorkMode = true;
+                        pomodoroMode.textContent = 'Режим: Работа (25 мин)';
+                    }
+                    updatePomodoroDisplay();
+                }
+            }, 1000);
+        }
+
+        function pausePomodoro() {
+            clearInterval(pomodoroInterval);
+            pomodoroInterval = null;
+        }
+
+        function resetPomodoro() {
+            clearInterval(pomodoroInterval);
+            pomodoroInterval = null;
+            pomodoroRemaining = 25 * 60;
+            isWorkMode = true;
+            pomodoroMode.textContent = 'Режим: Работа (25 мин)';
+            updatePomodoroDisplay();
+        }
+
+        startPomodoroBtn.addEventListener('click', startPomodoro);
+        pausePomodoroBtn.addEventListener('click', pausePomodoro);
+        resetPomodoroBtn.addEventListener('click', resetPomodoro);
+
+        // ===== NOTES =====
+        const notesList = document.getElementById('notesList');
+        const noteContent = document.getElementById('noteContent');
+        const saveNoteBtn = document.getElementById('saveNoteBtn');
+        const newNoteBtn = document.getElementById('newNoteBtn');
+        const deleteNoteBtn = document.getElementById('deleteNoteBtn');
+
+        let notes = [];
+        let currentNoteIndex = -1;
+
+        function renderNotes() {
+            notesList.innerHTML = '';
+            notes.forEach((note, index) => {
+                const noteItem = document.createElement('div');
+                noteItem.className = `note-item ${index === currentNoteIndex ? 'active' : ''}`;
+                noteItem.textContent = note.substring(0, 30) + (note.length > 30 ? '...' : '');
+                noteItem.dataset.index = index;
+                notesList.appendChild(noteItem);
+            });
+        }
+
+        function saveNote() {
+            const content = noteContent.value.trim();
+            if (content) {
+                if (currentNoteIndex === -1) {
+                    notes.push(content);
+                    currentNoteIndex = notes.length - 1;
+                } else {
+                    notes[currentNoteIndex] = content;
+                }
+                renderNotes();
+            }
+        }
+
+        function newNote() {
+            currentNoteIndex = -1;
+            noteContent.value = '';
+        }
+
+        function deleteNote() {
+            if (currentNoteIndex !== -1) {
+                notes.splice(currentNoteIndex, 1);
+                currentNoteIndex = -1;
+                noteContent.value = '';
+                renderNotes();
+            }
+        }
+
+        saveNoteBtn.addEventListener('click', saveNote);
+        newNoteBtn.addEventListener('click', newNote);
+        deleteNoteBtn.addEventListener('click', deleteNote);
+
+        notesList.addEventListener('click', (e) => {
+            if (e.target.classList.contains('note-item')) {
+                currentNoteIndex = parseInt(e.target.dataset.index);
+                noteContent.value = notes[currentNoteIndex];
+                renderNotes();
+            }
+        });
+
+        // ===== HABIT TRACKER =====
+        const habitInput = document.getElementById('habitInput');
+        const addHabitBtn = document.getElementById('addHabitBtn');
+        const habitList = document.getElementById('habitList');
+
+        let habits = [];
+
+        function renderHabits() {
+            habitList.innerHTML = '';
+            habits.forEach((habit, index) => {
+                const habitItem = document.createElement('div');
+                habitItem.className = 'habit-item';
+                habitItem.innerHTML = `
+                    <div class="habit-left">
+                        <input type="checkbox" class="todo-checkbox" ${habit.done ? 'checked' : ''} data-index="${index}">
+                        <span class="habit-name">${habit.name}</span>
+                    </div>
+                    <div>
+                        <span class="habit-streak">🔥 ${habit.streak}</span>
+                        <button class="todo-delete" data-index="${index}">×</button>
+                    </div>
+                `;
+                habitList.appendChild(habitItem);
+            });
+        }
+
+        function addHabit() {
+            const name = habitInput.value.trim();
+            if (name) {
+                habits.push({ name, done: false, streak: 0 });
+                habitInput.value = '';
+                renderHabits();
+            }
+        }
+
+        addHabitBtn.addEventListener('click', addHabit);
+        habitInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addHabit();
+        });
+
+        habitList.addEventListener('click', (e) => {
+            if (e.target.classList.contains('todo-checkbox')) {
+                const index = parseInt(e.target.dataset.index);
+                habits[index].done = !habits[index].done;
+                if (habits[index].done) {
+                    habits[index].streak++;
+                }
+                renderHabits();
+            }
+            if (e.target.classList.contains('todo-delete')) {
+                const index = parseInt(e.target.dataset.index);
+                habits.splice(index, 1);
+                renderHabits();
+            }
+        });
+
+        // ===== STOPWATCH =====
+        const stopwatchDisplay = document.getElementById('stopwatchDisplay');
+        const startStopwatchBtn = document.getElementById('startStopwatchBtn');
+        const pauseStopwatchBtn = document.getElementById('pauseStopwatchBtn');
+        const resetStopwatchBtn = document.getElementById('resetStopwatchBtn');
+
+        let stopwatchInterval = null;
+        let stopwatchTime = 0;
+
+        function updateStopwatchDisplay() {
+            const hours = Math.floor(stopwatchTime / 3600);
+            const minutes = Math.floor((stopwatchTime % 3600) / 60);
+            const seconds = stopwatchTime % 60;
+            stopwatchDisplay.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        function startStopwatch() {
+            if (stopwatchInterval) return;
+            stopwatchInterval = setInterval(() => {
+                stopwatchTime++;
+                updateStopwatchDisplay();
+            }, 1000);
+        }
+
+        function pauseStopwatch() {
+            clearInterval(stopwatchInterval);
+            stopwatchInterval = null;
+        }
+
+        function resetStopwatch() {
+            clearInterval(stopwatchInterval);
+            stopwatchInterval = null;
+            stopwatchTime = 0;
+            updateStopwatchDisplay();
+        }
+
+        startStopwatchBtn.addEventListener('click', startStopwatch);
+        pauseStopwatchBtn.addEventListener('click', pauseStopwatch);
+        resetStopwatchBtn.addEventListener('click', resetStopwatch);
+
+        // ===== MOTIVATION GENERATOR =====
+        const quoteText = document.getElementById('quoteText');
+        const newQuoteBtn = document.getElementById('newQuoteBtn');
+
+        const quotes = [
+            "Успех — это способность идти от неудачи к неудаче, не теряя энтузиазма.",
+            "Не ждите идеального момента. Возьмите момент и сделайте его идеальным.",
+            "Единственный способ делать великую работу — любить то, что вы делаете.",
+            "Мотивация — это то, с чего вы начинаете. Привычка — это то, что заставляет вас продолжать.",
+            "Ваше время ограничено, не тратьте его на жизнь чужой жизнью.",
+            "Начните с того места, где вы находитесь. Используйте то, что имеете. Делайте то, что можете.",
+            "Не бойтесь отказаться от хорошего ради великого.",
+            "Маленькие шаги каждый день приводят к большим изменениям.",
+            "Дисциплина — это мост между целями и достижениями.",
+            "Вы не должны быть великим, чтобы начать, но вы должны начать, чтобы стать великим.",
+            "Единственное ограничение — это то, которое вы установили в своем уме.",
+            "Будущее принадлежит тем, кто верит в красоту своих мечтаний.",
+            "Не считайте дни, делайте так, чтобы дни считались.",
+            "Трудности готовят обычных людей к необычной судьбе.",
+            "Лучшее время посадить дерево было 20 лет назад. Второе лучшее время — сейчас."
+        ];
+
+        function generateQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            quoteText.textContent = quotes[randomIndex];
+        }
+
+        newQuoteBtn.addEventListener('click', generateQuote);
+    </script>
+</body>
+</html>
